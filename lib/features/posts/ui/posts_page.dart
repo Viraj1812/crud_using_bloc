@@ -25,12 +25,6 @@ class _PostPageState extends State<PostPage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _postsBloc.add(PostAddEvent());
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Post added successfully'),
-              ),
-            );
           },
           child: const Icon(Icons.add),
         ),
@@ -38,7 +32,17 @@ class _PostPageState extends State<PostPage> {
           bloc: _postsBloc,
           listenWhen: (previous, current) => current is PostsActionState,
           buildWhen: (previous, current) => current is! PostsActionState,
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is PostAddSuccessState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.message),
+              ));
+            } else if (state is PostAddErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.errorMessage),
+              ));
+            }
+          },
           builder: (context, state) {
             switch (state.runtimeType) {
               case PostFeatchingLoadingState:

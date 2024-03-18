@@ -11,13 +11,11 @@ class PostFeatchingLoadingState extends PostsState {}
 
 class PostFetchingSuccessfulState extends PostsState {
   final List<PostDataUiModel> posts;
-
   PostFetchingSuccessfulState({required this.posts});
 }
 
 class PostFetchingFailedState extends PostsState {
   final String errorMessage;
-
   PostFetchingFailedState({required this.errorMessage});
 }
 
@@ -28,6 +26,5 @@ class PostAddSuccessState extends PostsActionState {
 
 class PostAddErrorState extends PostsActionState {
   final String errorMessage;
-
   PostAddErrorState({required this.errorMessage});
 }
